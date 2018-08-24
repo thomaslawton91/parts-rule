@@ -1,0 +1,34 @@
+Search Form: <br>
+<%= search_form_for @search do |f| %>
+  <%= f.condition_fields do |c| %>
+    <div class="field">
+      <%= c.attribute_fields do |a| %>
+        <%= a.attribute_select %>
+      <% end %>
+      <%= c.predicate_select only: [:cont, :lteq, :gteq]%>
+      <%= c.value_fields do |v| %>
+        <%= v.text_field :value %>
+      <% end %>
+    </div>
+  <% end %>
+<%= f.submit %>
+<% end %>
+<br>
+<table>
+  <tr>
+    <th> <%= sort_link @search, :reporting_make, "Make"%></th>
+    <th> <%= sort_link @search, :brand_name, "Brand"%></th>
+    <th> <%= sort_link @search, :category_name, "Category"%></th>
+    <th> <%= sort_link @search, :sub_category_name,  "Sub-category"%></th>
+    <th> <%= sort_link @search, :functional_name,  "Functional Name"%></th>
+  </tr>
+  <% @skus.each do |sku| %>
+  <tr>
+    <td><%= link_to sku.reporting_make, sku_path(sku) %></td>
+    <td><%= sku.brand_name %></td>
+    <td><%= sku.category_name %></td>
+    <td><%= sku.sub_category_name %></td>
+    <td><%= sku.functional_name %></td>
+  </tr>
+  <% end %>
+</table>
